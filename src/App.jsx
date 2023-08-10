@@ -6,6 +6,7 @@ import NotFound from './pages/NotFound/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Registrar from './pages/Registrar/Registrar';
 import './shared/css/Global.css';
+import Premios from './pages/Premios/Premios';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRouter><Home/></PrivateRouter>} />
           <Route exact path="/home" element={<PrivateRouter><Home/></PrivateRouter>} />
+          <Route exact path="/premios" element={<PrivateRouter><Premios/></PrivateRouter>} />
           <Route exact path="/login" element={<Login/>} />
           <Route exact path="/registrar" element={<Registrar/>} />
           <Route exact path="*" element={<NotFound/>} />
