@@ -6,6 +6,7 @@ import NavDropdown  from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Logo from '../../shared/img/logo-gaucho.png';
 import '../../shared/css/Logo.css';
+import {IsAdmin} from "../../services/AdminServices/AdminServices";
 
 function MenuSuperior() {
     const [email, setEmail] = useState('');
@@ -40,7 +41,7 @@ function MenuSuperior() {
             <Nav.Link as={NavLink} to='/premios'>Prêmios</Nav.Link>
             <Nav.Link href="#link">Minhas Cartelas</Nav.Link>
             <Nav.Link href="#link">Sorteios</Nav.Link>
-            <Nav.Link href="#link" disabled>Admin</Nav.Link>
+            <Nav.Link as={NavLink} to='/admin' disabled={IsAdmin() === false}>Admin</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
