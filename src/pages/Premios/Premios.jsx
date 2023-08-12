@@ -1,116 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MenuSuperior from '../../components/MenuSuperior/MenuSuperior';
-import  {Container}  from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import  Row  from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import api from './../../services/API/api';
+import CardPremioDisponivel from '../../components/CardPremioDisponivel/CardPremioDisponivel';
 
 const Premios = () => {
+    const [premios, setpremios] = useState([]);
+    const token = localStorage.getItem('token');
+
+    const authorization = {
+        headers : {
+            Authorization: 'Bearer '+token,
+        }
+    }
+
+    useEffect(() => {
+        api.get('v1/premio/ListaPremiosDisponiveis', authorization)
+        .then(
+            response => {setpremios(response.data.message);}
+        , token)
+    },[]);
 
     return <>
         <MenuSuperior/>
         <Container style={{ marginTop: '20px' }}>
             <Row>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
-                <Card style={{ width: '18rem', margin:'5px' }}>
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                </Card>
+            {premios.map((premio) => (
+                <CardPremioDisponivel key={premio.id} premio={premio} />
+            ))};
             </Row>
         </Container>
     </>
